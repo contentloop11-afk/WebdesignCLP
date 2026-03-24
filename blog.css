@@ -20,7 +20,7 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 16 / 9;
   cursor: pointer;
   display: block;
   text-decoration: none;
@@ -213,21 +213,19 @@
 
 @media (max-width: 991px) {
   .blog-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  .blog-card:last-child {
-    grid-column: 1 / -1;
+  .blog-card {
     aspect-ratio: 16 / 9;
   }
 }
 
 @media (max-width: 640px) {
   .blog-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
-  .blog-card,
-  .blog-card:last-child {
-    aspect-ratio: 4 / 5;
+  .blog-card {
+    aspect-ratio: 16 / 9;
   }
 }
