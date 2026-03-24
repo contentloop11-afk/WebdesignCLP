@@ -1,0 +1,4 @@
+/* ===== ZUSÄTZLICHES LOGO - WEISSER HINTERGRUND ===== */
+.logo-wrapper img[src*="ChatGPT Image 25. Aug. 2025, 15_35_59.png"] {
+    background: #fff !important;
+}

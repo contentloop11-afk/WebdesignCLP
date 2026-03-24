@@ -1,0 +1,136 @@
+/* Custom CSS to override the silhouette image - STRONGER OVERRIDE */
+.silhouette {
+    background-image: url('./6800c8f82f84b25f3f398ba1_sihouette.webp?v=2025') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: 25% center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Even stronger override with multiple selectors */
+section.home-hero-section .silhouette,
+.home-hero-section div.silhouette,
+div.silhouette {
+    background-image: url('./6800c8f82f84b25f3f398ba1_sihouette.webp?v=2025') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: 25% center !important;
+}
+
+/* LARS KUNDE Name - Echte Parallax Scroll Animation */
+.home-hero-section .name,
+section.home-hero-section h1.name,
+h1.name {
+    transform: translateX(-150px) !important; /* Startposition: links außerhalb */
+    will-change: transform !important;
+    /* JavaScript überschreibt das transform mit style-Attribut (höhere Priorität) */
+}
+
+/* Logo Styling - Noch größer, enger zusammen (75% größer) */
+img[src*="461692049_939596644871335_6141719376077563478_n.jpg"],
+img[src*="bose-1-logo.png"],
+img[src*="Quadcopter.png"] {
+    border-radius: 24px !important;          /* Noch runder */
+    width: 240px !important;                 /* Noch größer: 180px -> 240px */
+    height: 160px !important;                /* Noch höher: 120px -> 160px */
+    object-fit: contain !important;
+    padding: 16px !important;                /* Mehr padding */
+    background-color: white !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important; /* Stärkerer Schatten */
+    transition: transform 0.3s ease !important;
+    margin: 0 8px !important;                /* Enger zusammen */
+}
+
+/* Hover-Effekt für alle Logos */
+img[src*="461692049_939596644871335_6141719376077563478_n.jpg"]:hover,
+img[src*="bose-1-logo.png"]:hover,
+img[src*="Quadcopter.png"]:hover {
+    transform: scale(1.05) !important;
+}
+
+/* Glasmorphism Hover-Effekt für Projekt-Items */
+.projects-collection-item {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.projects-collection-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 10;
+}
+
+.projects-collection-item:hover .image-wrapper {
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+}
+
+.projects-collection-item:hover .project-thumbnail-content {
+    border-radius: 0 0 16px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Smooth Transition für alle inneren Elemente */
+.projects-collection-item * {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Webflow Badge ausblenden */
+.w-webflow-badge {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+
+/* ==== Image ratio fixes to prevent vertical squashing ==== */
+.hero-project-thumbnail,
+.revealed-image,
+.smaller-thumbnail,
+.store-thumbnail-image,
+.project-thumbnail-link-inner img,
+.projects-grid img,
+.collection-list img,
+.blog-thumbnail-link .revealed-image,
+.logo-wrapper img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+/* Avoid fixed container heights forcing distortion */
+.image-wrapper,
+.store-thumbnail-bg {
+    height: auto !important;
+}
+
+/* Size the small strip thumbs without distortion */
+.smaller-thumbnail {
+    width: 120px !important;
+    height: auto !important;
+    object-fit: cover !important;
+}
+
+/* Commerce/cart thumbnails – prevent stretching */
+.cart-thumbnail,
+.checkout-cart-thumbnail,
+.w-commerce-commercecartitemimage {
+    width: 100% !important;
+    max-width: 120px !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+

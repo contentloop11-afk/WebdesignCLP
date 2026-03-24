@@ -1,0 +1,185 @@
+/* Apple-minimalistischer Click Me Button - Mittig mit Glowy Lighten Mode */
+.apple-click-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    mix-blend-mode: lighten;
+}
+
+/* Glowy Lighten Overlay */
+.apple-click-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.05) 50%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: lighten;
+}
+
+/* Button erscheint beim Hover über das Projekt */
+.projects-collection-item:hover .apple-click-button {
+    opacity: 1;
+    pointer-events: all;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover-Effekt auf dem Button selbst - Glowy Lighten Mode */
+.apple-click-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    animation: glowyPulse 2s ease-in-out infinite;
+}
+
+/* Glowy Lighten Animation beim Hover */
+.apple-click-button:hover::after {
+    opacity: 1;
+    animation: lightenGlow 1.5s ease-in-out infinite;
+}
+
+.apple-click-button:active {
+    transform: translate(-50%, -50%) scale(1.02);
+    transition: all 0.1s ease;
+}
+
+.apple-click-button::before {
+    content: "▶";
+    font-size: 11px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 2;
+}
+
+.apple-click-button:hover::before {
+    color: #ffffff;
+    transform: translateX(2px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+    animation: iconGlow 1.5s ease-in-out infinite;
+}
+
+/* Glowy Pulse Animation */
+@keyframes glowyPulse {
+    0% {
+        box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 255, 255, 0.3),
+            0 0 40px rgba(255, 255, 255, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    50% {
+        box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 255, 255, 0.5),
+            0 0 50px rgba(255, 255, 255, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 255, 255, 0.3),
+            0 0 40px rgba(255, 255, 255, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+}
+
+/* Lighten Glow Animation */
+@keyframes lightenGlow {
+    0% {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 50%, 
+            rgba(255, 255, 255, 0.1) 100%);
+    }
+    50% {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.2) 0%, 
+            rgba(255, 255, 255, 0.1) 50%, 
+            rgba(255, 255, 255, 0.2) 100%);
+    }
+    100% {
+        background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(255, 255, 255, 0.05) 50%, 
+            rgba(255, 255, 255, 0.1) 100%);
+    }
+}
+
+/* Icon Glow Animation */
+@keyframes iconGlow {
+    0% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+    }
+    50% {
+        text-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 35px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+    }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .apple-click-button {
+        top: 15px;
+        right: 15px;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+/* Spezielle Positionierung für das Media Markt Projekt */
+.projects-collection-item:has(h3:contains("Media Markt x Bose")) {
+    position: relative;
+}
+
+.projects-collection-item:has(h3:contains("Media Markt x Bose")) .apple-click-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

@@ -1,0 +1,141 @@
+/* === SIMPLE NON-INVASIVE PRELOADER === */
+
+.simple-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('6800c8e164f573cde7c98729_bg-blue.webp') center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 999999;
+  padding: 0 8%;
+}
+
+.simple-percentage {
+  font-size: clamp(4rem, 12vw, 14rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 0.8;
+  
+  /* Grainy Glow Effekt */
+  text-shadow: 
+    0 0 40px rgba(255, 255, 255, 0.9),
+    0 0 80px rgba(255, 255, 255, 0.7),
+    0 0 120px rgba(255, 255, 255, 0.5),
+    0 0 160px rgba(255, 255, 255, 0.3),
+    1px 1px 1px rgba(255, 255, 255, 0.6),
+    -1px -1px 1px rgba(255, 255, 255, 0.6),
+    2px -1px 1px rgba(255, 255, 255, 0.5),
+    -2px 1px 1px rgba(255, 255, 255, 0.5);
+  
+  filter: contrast(1.1) brightness(1.05);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Smooth movement animation */
+  animation: slideUpSmooth 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Smooth movement from bottom-left to 3/4 height */
+@keyframes slideUpSmooth {
+  0% {
+    transform: translateY(45vh);
+    opacity: 0;
+  }
+  15% {
+    transform: translateY(35vh);
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(-18vh); /* 3/4 height */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-18vh);
+    opacity: 0;
+  }
+}
+
+/* Fade out preloader */
+.simple-preloader.loaded {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out;
+}
+
+/* Hide static GIF */
+[src*="static.gif"],
+[src*="67d85542b78d6eea224ef5_static.gif"] {
+  display: none !important;
+}
+
+/* Hero-Bilder werden durch JavaScript versteckt/ersetzt */
+
+/* HERO ELEMENTS: Initial versteckt für saubere Push-Animation */
+body .name,
+body .ai-artist,
+body .intro-text,
+body .silhouette,
+body [src*="sihouette"],
+body .home-hero-content-wrapper {
+  opacity: 0 !important;
+  transform: translateY(-80px) !important;
+  visibility: hidden !important;
+  transition: none !important;
+}
+
+/* Hero Container und Background bleiben sichtbar */
+body .home-hero-section,
+body .fixed-photo-wall-bg,
+body [src*="photo-wall"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* PROJECTS-GRID-THUMBNAILS CONTAINER bleibt sichtbar für Videos */
+body .projects-grid-thumbnails {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* HERO LOADED: Elemente kommen rein */
+body.hero-loaded .name,
+body.hero-loaded .ai-artist,
+body.hero-loaded .intro-text,
+body.hero-loaded .silhouette,
+body.hero-loaded [src*="sihouette"],
+body.hero-loaded .home-hero-content-wrapper {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .simple-preloader {
+    padding: 8% 5%;
+  }
+  
+  .simple-percentage {
+    font-size: clamp(3rem, 18vw, 10rem);
+  }
+  
+  /* Mobile: Kleinere Push-Animation */
+  .name,
+  .ai-artist,
+  .intro-text,
+  .silhouette,
+  [src*="sihouette"],
+  .home-hero-content-wrapper {
+    transform: translateY(-40px);
+  }
+}

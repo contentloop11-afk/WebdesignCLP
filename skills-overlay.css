@@ -1,0 +1,108 @@
+/* ===== SKILLS OVERLAY SECTION ===== */
+
+.skills-overlay-section {
+  padding: 60px 0 80px 0;
+  background: transparent;
+  position: relative;
+  z-index: 5;
+  margin-bottom: 40px;
+}
+
+.skills-overlay-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skills-overlay-header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+.skills-overlay-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'Big Shoulders Display', sans-serif;
+}
+
+.skills-overlay-subtitle {
+  font-size: 16px;
+  color: #aaa;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Marquee wrapper */
+.skills-overlay-grid {
+  overflow: hidden;
+  width: 100%;
+  margin-top: 30px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+/* Scrolling track */
+.skills-marquee-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 24px;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.skills-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Single card */
+.skill-overlay-card {
+  flex: 0 0 180px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.skill-overlay-media {
+  width: 180px;
+  height: 120px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skill-overlay-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.skill-overlay-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .skills-overlay-title { font-size: 28px; }
+  .skill-overlay-card   { flex: 0 0 140px; }
+  .skill-overlay-media  { width: 140px; height: 90px; }
+}

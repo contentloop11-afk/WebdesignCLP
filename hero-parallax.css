@@ -1,0 +1,41 @@
+/* Hero Parallax Scroll Animation */
+
+/* Container für die Hero-Videos mit Parallax-Effekt */
+.projects-grid-thumbnails {
+  overflow: visible !important;
+  position: relative !important;
+}
+
+/* Alle Hero-Videos für Parallax vorbereiten */
+.projects-grid-thumbnails video {
+  transition: transform 0.1s ease-out !important;
+  will-change: transform !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+/* Spezielle Klassen für jedes Video */
+.hero-video-1 {
+  transform-origin: center center !important;
+}
+
+.hero-video-2 {
+  transform-origin: center center !important;
+}
+
+.hero-video-3 {
+  transform-origin: center center !important;
+}
+
+/* Mobile Optimierung */
+@media (max-width: 768px) {
+  .projects-grid-thumbnails video {
+    transition: transform 0.2s ease-out !important;
+  }
+}
+
+/* Performance Optimierung */
+.projects-grid-thumbnails .collection-item {
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+}

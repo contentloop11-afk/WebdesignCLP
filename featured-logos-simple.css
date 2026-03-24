@@ -1,0 +1,43 @@
+/* ===== FEATURED ON LOGOS - ALLE QUADRATISCH ===== */
+
+/* Alle Logos quadratisch und größer */
+.logo-wrapper img {
+  width: 140px !important;
+  height: 140px !important;
+  max-width: 140px !important;
+  max-height: 140px !important;
+  min-width: 140px !important;
+  min-height: 140px !important;
+  object-fit: contain !important;
+  display: block !important;
+  padding: 25px !important;
+  border-radius: 10px !important;
+}
+
+/* Bose Logo - weißer Hintergrund */
+.logo-wrapper img[src*="bose-1-logo.png"] {
+  background: #fff !important;
+}
+
+/* Happy Size Logo - weißer Hintergrund */
+.logo-wrapper img[src*="461692049_939596644871335_6141719376077563478_n.jpg"] {
+  background: #fff !important;
+}
+
+/* Quadcopter Logo - schwarzer Hintergrund */
+.logo-wrapper img[src*="Quadcopter.png"] {
+  background: #000 !important;
+}
+
+/* BMW Logo - schwarzer Hintergrund */
+.logo-wrapper img[src*="Daco_5743982.png"] {
+  background: #000 !important;
+}
+
+/* Corner-Elemente für alle Logos verstecken */
+.logo-wrapper .top-left-corner,
+.logo-wrapper .top-right-corner,
+.logo-wrapper .bottom-left-corner,
+.logo-wrapper .bottom-right-corner {
+  display: none !important;
+}
