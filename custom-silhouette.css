@@ -209,12 +209,15 @@ img[src*="Quadcopter.png"]:hover {
         min-height: 100vh !important;
     }
 
-    /* Silhouette: bigger, centered on mobile */
+    /* Silhouette: override Webflow's 50% shrink rule */
     .silhouette {
-        background-size: 85% auto !important;
-        background-position: center 10% !important;
+        max-width: 100% !important;
         width: 100% !important;
         height: 100% !important;
+        inset: 0 !important;
+        transform: none !important;
+        background-size: cover !important;
+        background-position: 50% 15% !important;
     }
 
     /* Hero name: readable size on mobile */
