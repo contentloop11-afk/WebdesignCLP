@@ -134,3 +134,172 @@ img[src*="Quadcopter.png"]:hover {
     object-fit: contain !important;
 }
 
+/* =====================================================
+   PROJECT CARDS — Fix overlay & year tag
+   ===================================================== */
+
+/* Replace opaque black fill with bottom-up gradient
+   so the image is visible in the upper area */
+.project-thumbnail-content {
+    background: linear-gradient(
+        to top,
+        rgba(9,9,9,0.96) 0%,
+        rgba(9,9,9,0.75) 35%,
+        rgba(9,9,9,0.15) 65%,
+        rgba(9,9,9,0.0) 100%
+    ) !important;
+}
+
+/* The year tag (headline-text absolute) inside cards
+   should be a small subtle label, not a display heading */
+.project-thumbnail-content .headline-text,
+.project-thumbnail-content .headline-text.absolute {
+    font-size: 11px !important;
+    letter-spacing: 3px !important;
+    font-weight: 700 !important;
+    color: rgba(255,255,255,0.45) !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+    display: inline-block !important;
+    position: static !important;
+}
+
+/* Card text layout: title bottom, year top-right */
+.project-thumbnail-content {
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+}
+
+.project-thumbnail-content > div:first-child {
+    order: 2;
+}
+
+.project-thumbnail-content > div:last-child {
+    order: 1;
+    align-self: flex-end;
+}
+
+.project-thumbnail-content h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 6px !important;
+    color: #fff !important;
+    line-height: 1.1 !important;
+}
+
+.project-thumbnail-content p {
+    font-size: 13px !important;
+    color: rgba(255,255,255,0.65) !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+
+/* =====================================================
+   MOBILE FIXES — max-width: 767px
+   ===================================================== */
+
+@media screen and (max-width: 767px) {
+
+    /* Nav: hide desktop links, show only logo + hamburger */
+    .nav-menu-two .nav-link:not(.w-nav-link),
+    li.list-item-6,
+    li.list-item-5,
+    li.list-item-4,
+    li.list-item-3 {
+        display: none !important;
+    }
+
+    /* Social icons in nav — tighter on mobile */
+    .social-links-wrapper {
+        gap: 12px !important;
+    }
+
+    /* Skills marquee — reduce card size on mobile */
+    .skill-overlay-card {
+        flex: 0 0 130px !important;
+    }
+
+    /* Blog grid — single column */
+    .blog-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Blog cards — sensible aspect ratio on mobile */
+    .blog-card {
+        aspect-ratio: 16 / 9 !important;
+    }
+
+    /* Testimonials — single column */
+    .testimonials-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Project rows — full width */
+    .project-row,
+    .projects-collection-item {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Project thumbnail content on mobile: static, visible below image */
+    .project-thumbnail-content {
+        position: static !important;
+        background: rgba(9,9,9,0.6) !important;
+        padding: 14px 16px !important;
+    }
+
+    /* Notion section — tighter on mobile */
+    .notion-hero-section > div {
+        padding: 40px 20px !important;
+    }
+
+    .notion-hero-section video {
+        width: 160px !important;
+        height: 160px !important;
+    }
+
+    /* Blog post pages */
+    .bp-hero { height: 50vh !important; }
+    .bp-hero-title { font-size: 1.8rem !important; }
+
+    /* Fix buttons/links not wrapping */
+    .button-row,
+    .cta-wrapper,
+    .nav-cta-wrapper {
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+    }
+
+    /* Prevent horizontal overflow globally */
+    body, .page-wrapper, section {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+
+    /* Skills overlay fade edges — reduce on mobile */
+    .skills-overlay-grid {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%) !important;
+        mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%) !important;
+    }
+}
+
+/* Tablet adjustments */
+@media screen and (max-width: 991px) and (min-width: 768px) {
+
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .project-row {
+        width: 80vw !important;
+        max-width: 80vw !important;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
