@@ -203,6 +203,32 @@ img[src*="Quadcopter.png"]:hover {
 
 @media screen and (max-width: 767px) {
 
+    /* Hero section: full-height on mobile */
+    .home-hero-section {
+        min-height: 100svh !important;
+        min-height: 100vh !important;
+    }
+
+    /* Silhouette: bigger, centered on mobile */
+    .silhouette {
+        background-size: 85% auto !important;
+        background-position: center 10% !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* Hero name: readable size on mobile */
+    h1.name {
+        font-size: 22vw !important;
+        letter-spacing: -1px !important;
+    }
+
+    /* AI-artist subtitle */
+    .ai-artist {
+        font-size: 3.5vw !important;
+        letter-spacing: 2px !important;
+    }
+
     /* Nav: hide desktop links, show only logo + hamburger */
     .nav-menu-two .nav-link:not(.w-nav-link),
     li.list-item-6,
