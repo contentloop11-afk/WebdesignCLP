@@ -220,7 +220,7 @@ img[src*="Quadcopter.png"]:hover {
         inset: 0 !important;
         transform: none !important;
         background-size: cover !important;
-        background-position: center 20% !important;
+        background-position: 30% 20% !important;
         position: absolute !important;
     }
 
