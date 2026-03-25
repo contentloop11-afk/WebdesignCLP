@@ -1,6 +1,6 @@
 /* Custom CSS to override the silhouette image - STRONGER OVERRIDE */
 .silhouette {
-    background-image: url('./6800c8f82f84b25f3f398ba1_sihouette.webp?v=2025') !important;
+    background-image: url('./footage/silhouette-new.webp') !important;
     background-size: contain !important;
     background-repeat: no-repeat !important;
     background-position: 10% center !important;
@@ -12,7 +12,7 @@
 section.home-hero-section .silhouette,
 .home-hero-section div.silhouette,
 div.silhouette {
-    background-image: url('./6800c8f82f84b25f3f398ba1_sihouette.webp?v=2025') !important;
+    background-image: url('./footage/silhouette-new.webp') !important;
     background-size: contain !important;
     background-repeat: no-repeat !important;
     background-position: 10% center !important;
