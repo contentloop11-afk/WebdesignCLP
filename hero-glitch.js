@@ -32,7 +32,7 @@
       objectFit: 'contain',
       objectPosition: '50% center',
       opacity: '0',
-      mixBlendMode: 'normal',
+      mixBlendMode: isSafari ? 'screen' : 'normal',
       maskImage: 'radial-gradient(ellipse 80% 90% at 50% 40%, black 40%, transparent 80%)',
       webkitMaskImage: 'radial-gradient(ellipse 80% 90% at 50% 40%, black 40%, transparent 80%)',
       transition: 'opacity 0.3s ease',
