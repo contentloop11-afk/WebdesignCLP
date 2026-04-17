@@ -31,7 +31,7 @@
       width: '100%',
       height: '100%',
       objectFit: isMobile ? 'cover' : 'contain',
-      objectPosition: isMobile ? '61% 20%' : '50% center',
+      objectPosition: isMobile ? '60.5% 20%' : '50% center',
       opacity: '0',
       mixBlendMode: isSafari ? 'screen' : 'normal',
       maskImage: 'radial-gradient(ellipse 80% 90% at 50% 40%, black 40%, transparent 80%)',
