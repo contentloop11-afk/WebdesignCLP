@@ -55,14 +55,24 @@
     // Auch bei erster Scroll-Interaktion
     document.addEventListener('scroll', unlockAudio, { once: true });
 
+    // Keyframe für subtilen Overbounce-Zoom
+    var styleTag = document.createElement('style');
+    styleTag.textContent = '@keyframes glitch-zoom{0%{transform:scale(1)}35%{transform:scale(1.025)}75%{transform:scale(0.993)}100%{transform:scale(1)}}';
+    document.head.appendChild(styleTag);
+
     function playGlitch() {
       video.currentTime = 0;
       video.style.opacity = '1';
       video.play();
       sfx.currentTime = 0;
       sfx.play().catch(function () {});
+      // Overbounce auf die Silhouette
+      silhouette.style.animation = 'none';
+      silhouette.offsetHeight; // reflow trigger
+      silhouette.style.animation = 'glitch-zoom 0.6s cubic-bezier(0.36,0.07,0.19,0.97) forwards';
       video.onended = function () {
         video.style.opacity = '0';
+        silhouette.style.animation = 'none';
       };
     }
 
