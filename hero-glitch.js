@@ -20,7 +20,7 @@
     video.preload = 'auto';
     video.loop = false;
 
-    // Muss exakt background-size:contain + background-position:10% center matchen
+    // objectPosition muss exakt background-position der Silhouette matchen
     Object.assign(video.style, {
       position: 'absolute',
       top: '0',
@@ -28,11 +28,11 @@
       width: '100%',
       height: '100%',
       objectFit: 'contain',
-      objectPosition: '52% center',
+      objectPosition: '20% center',
       opacity: '0',
       mixBlendMode: 'screen',
-      maskImage: 'radial-gradient(ellipse 65% 75% at 43% 45%, black 40%, transparent 80%)',
-      webkitMaskImage: 'radial-gradient(ellipse 65% 75% at 43% 45%, black 40%, transparent 80%)',
+      maskImage: 'radial-gradient(ellipse 65% 75% at 20% 45%, black 40%, transparent 80%)',
+      webkitMaskImage: 'radial-gradient(ellipse 65% 75% at 20% 45%, black 40%, transparent 80%)',
       transition: 'opacity 0.3s ease',
       zIndex: '10',
       pointerEvents: 'none',
@@ -40,10 +40,27 @@
 
     silhouette.appendChild(video);
 
+    const sfx = new Audio('./glitch_sfx.wav');
+    sfx.preload = 'auto';
+
+    // Browser blockiert Audio bis erster User-Interact — einmal unlock
+    var audioUnlocked = false;
+    function unlockAudio() {
+      if (audioUnlocked) return;
+      sfx.play().then(function () { sfx.pause(); sfx.currentTime = 0; audioUnlocked = true; }).catch(function () {});
+    }
+    document.addEventListener('click', unlockAudio, { once: true });
+    document.addEventListener('touchstart', unlockAudio, { once: true });
+    document.addEventListener('keydown', unlockAudio, { once: true });
+    // Auch bei erster Scroll-Interaktion
+    document.addEventListener('scroll', unlockAudio, { once: true });
+
     function playGlitch() {
       video.currentTime = 0;
       video.style.opacity = '1';
       video.play();
+      sfx.currentTime = 0;
+      sfx.play().catch(function () {});
       video.onended = function () {
         video.style.opacity = '0';
       };

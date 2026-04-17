@@ -3,9 +3,10 @@
     background-image: url('./footage/silhouette-new.webp') !important;
     background-size: contain !important;
     background-repeat: no-repeat !important;
-    background-position: 47% center !important;
+    background-position: center center !important;
     width: 100% !important;
     height: 100% !important;
+    transform: translateX(150px) !important;
 }
 
 /* Even stronger override with multiple selectors */
@@ -15,7 +16,8 @@ div.silhouette {
     background-image: url('./footage/silhouette-new.webp') !important;
     background-size: contain !important;
     background-repeat: no-repeat !important;
-    background-position: 47% center !important;
+    background-position: center center !important;
+    transform: translateX(150px) !important;
 }
 
 /* LARS KUNDE Name - Echte Parallax Scroll Animation */
