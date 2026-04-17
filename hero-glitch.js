@@ -1,6 +1,8 @@
 (function () {
   const INTERVAL_MS = 5000;
-  const VIDEO_SRC = './glitch-hero.webm';
+  // WebM Alpha für Chrome/FF, MP4 Fallback für Safari/iOS
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const VIDEO_SRC = isSafari ? './glitch-hero.mp4' : './glitch-hero.webm';
 
   function init() {
     const hero = document.querySelector('.home-hero-section');
