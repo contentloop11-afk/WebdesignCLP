@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google AI Pro — 5 TB Deal</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;--card:#141414;--accent:#4285f4;--green:#34a853;
+    --yellow:#fbbc04;--red:#ea4335;--text:#e8eaed;--sub:#9aa0a6;
+    --glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.08)
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+  .hero{position:relative;padding:80px 24px 60px;text-align:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(66,133,244,.15) 0%,transparent 70%);pointer-events:none}
+
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:100px;background:linear-gradient(135deg,rgba(66,133,244,.15),rgba(52,168,83,.15));border:1px solid rgba(66,133,244,.2);font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:32px}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,#fff 30%,var(--accent) 70%,var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero .sub{font-size:clamp(1rem,2.5vw,1.25rem);color:var(--sub);max-width:520px;margin:0 auto 40px;line-height:1.6}
+
+  .price-block{display:inline-flex;align-items:baseline;gap:12px;margin-bottom:12px}
+  .price-old{font-size:1.5rem;color:var(--sub);text-decoration:line-through}
+  .price-new{font-size:3.5rem;font-weight:800;color:#fff}
+  .price-new span{font-size:1.2rem;color:var(--sub);font-weight:400}
+  .price-info{font-size:.9rem;color:var(--sub);margin-bottom:48px}
+
+  .features{max-width:900px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .feature{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:32px 28px;transition:transform .3s,border-color .3s}
+  .feature:hover{transform:translateY(-4px);border-color:rgba(66,133,244,.3)}
+  .feature .icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+  .feature .icon.blue{background:rgba(66,133,244,.15)}
+  .feature .icon.green{background:rgba(52,168,83,.15)}
+  .feature .icon.yellow{background:rgba(251,188,4,.15)}
+  .feature .icon.red{background:rgba(234,67,53,.15)}
+  .feature .icon.purple{background:rgba(168,85,247,.15)}
+  .feature h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+  .feature p{font-size:.9rem;color:var(--sub);line-height:1.5}
+
+  .comparison{max-width:700px;margin:0 auto 80px;padding:0 24px}
+  .comparison h2{text-align:center;font-size:1.8rem;font-weight:700;margin-bottom:32px}
+  .comp-table{background:var(--glass);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+  .comp-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:16px 24px;border-bottom:1px solid var(--border);align-items:center}
+  .comp-row:last-child{border-bottom:none}
+  .comp-row.header{background:rgba(66,133,244,.08);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--sub)}
+  .comp-row .check{color:var(--green);font-size:1.2rem;text-align:center}
+  .comp-row .cross{color:var(--sub);text-align:center;opacity:.4}
+  .comp-row .label{font-size:.95rem}
+  .comp-row .center{text-align:center;font-size:.9rem}
+  .highlight-col{color:var(--accent);font-weight:700}
+
+  .cta-section{text-align:center;padding:0 24px 100px}
+  .cta-section h2{font-size:1.6rem;font-weight:700;margin-bottom:12px}
+  .cta-section p{color:var(--sub);margin-bottom:32px;font-size:1rem}
+  .cta-btn{display:inline-flex;align-items:center;gap:10px;padding:18px 48px;border-radius:100px;background:linear-gradient(135deg,var(--accent),#1a73e8);color:#fff;text-decoration:none;font-size:1.1rem;font-weight:700;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+  .cta-btn:hover{transform:scale(1.05);box-shadow:0 8px 40px rgba(66,133,244,.3)}
+
+  .footer{text-align:center;padding:24px;color:var(--sub);font-size:.8rem;border-top:1px solid var(--border)}
+
+  @media(max-width:600px){
+    .hero{padding:60px 20px 40px}
+    .features{grid-template-columns:1fr;padding:0 20px 60px}
+    .comp-row{grid-template-columns:1.2fr 1fr 1fr;padding:12px 16px;font-size:.85rem}
+    .price-new{font-size:2.8rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge"><span class="dot"></span> Angebot aktiv</div>
+  <h1>Google AI Pro</h1>
+  <p class="sub">5 TB Speicher, Gemini 3.1 Pro, Veo 3.1 Video-KI und 1.000 AI-Credits. Aktuell 50% reduziert.</p>
+
+  <div class="price-block">
+    <span class="price-old">21,99 &euro;</span>
+    <span class="price-new">10,99 &euro; <span>/Monat</span></span>
+  </div>
+  <p class="price-info">6 Monate lang. Danach 21,99 &euro;/Monat. Jederzeit kuendbar.</p>
+</div>
+
+<div class="features">
+  <div class="feature">
+    <div class="icon blue">&#9729;</div>
+    <h3>5 TB Cloud-Speicher</h3>
+    <p>Google Drive, Fotos &amp; Gmail. Teilbar mit bis zu 5 Personen. Mehr Platz als du brauchst.</p>
+  </div>
+  <div class="feature">
+    <div class="icon green">&#10024;</div>
+    <h3>Gemini 3.1 Pro</h3>
+    <p>Googles staerkstes KI-Modell. Dokumente, Code, Analyse, Brainstorming &mdash; direkt in der Gemini App.</p>
+  </div>
+  <div class="feature">
+    <div class="icon purple">&#127916;</div>
+    <h3>Veo 3.1 Video-KI</h3>
+    <p>Erweiterter Zugriff auf Flow (Video-Generierung mit Veo 3.1) und Whisk mit Veo 3.</p>
+  </div>
+  <div class="feature">
+    <div class="icon yellow">&#9889;</div>
+    <h3>1.000 AI-Credits</h3>
+    <p>Pro Monat. Fuer alle Google-KI-Dienste nutzbar &mdash; Bildgenerierung, Video, Analyse.</p>
+  </div>
+  <div class="feature">
+    <div class="icon red">&#128218;</div>
+    <h3>NotebookLM Pro</h3>
+    <p>Erweiterter Zugriff. Dokumente hochladen, KI-generierte Podcasts, Deep Research.</p>
+  </div>
+  <div class="feature">
+    <div class="icon blue">&#128231;</div>
+    <h3>Gemini in Workspace</h3>
+    <p>KI-Assistent direkt in Gmail, Docs, Vids, Kalender und Meet integriert.</p>
+  </div>
+</div>
+
+<div class="comparison">
+  <h2>Was du bekommst</h2>
+  <div class="comp-table">
+    <div class="comp-row header">
+      <span></span>
+      <span class="center">AI Plus (aktuell)</span>
+      <span class="center highlight-col">AI Pro</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">Speicher</span>
+      <span class="center">200 GB</span>
+      <span class="center highlight-col">5 TB</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">Gemini 3.1 Pro</span>
+      <span class="check center">&#10003;</span>
+      <span class="check center">&#10003;</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">Veo 3.1 (erweitert)</span>
+      <span class="cross center">&#10005;</span>
+      <span class="check center">&#10003;</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">AI-Credits</span>
+      <span class="center">200</span>
+      <span class="center highlight-col">1.000</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">Google Home Premium</span>
+      <span class="cross center">&#10005;</span>
+      <span class="check center">&#10003;</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">Familienfreigabe (5 Pers.)</span>
+      <span class="cross center">&#10005;</span>
+      <span class="check center">&#10003;</span>
+    </div>
+    <div class="comp-row">
+      <span class="label">Preis</span>
+      <span class="center">7,99 &euro;</span>
+      <span class="center highlight-col">10,99 &euro;</span>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>50% Rabatt &mdash; nur fuer kurze Zeit</h2>
+  <p>6 Monate fuer 10,99 &euro; statt 21,99 &euro;. Jederzeit kuendbar.</p>
+  <a href="https://one.google.com/storage" class="cta-btn" target="_blank">&#10024; Jetzt upgraden</a>
+</div>
+
+<div class="footer">
+  Google One &mdash; Preise und Angebote koennen je nach Region variieren. Stand: April 2026.
+</div>
+
+</body>
+</html>
