@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>TikTok Auth Callback</title></head>
+<body>
+<script>
+  // Grab the auth code from URL and redirect to main app
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  if (code) {
+    window.location.href = '/tiktok-upload.html?code=' + code;
+  } else {
+    document.body.innerText = 'Authorization failed: ' + (params.get('error') || 'unknown error');
+  }
+</script>
+</body>
+</html>
