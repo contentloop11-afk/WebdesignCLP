@@ -1,5 +1,40 @@
 /* ===== FEATURED ON LOGOS - ALLE QUADRATISCH ===== */
 
+/* Marquee-Animation (Ersatz für Webflow IX2): scrollt das Logo-Band endlos von rechts nach links.
+   Die zwei identischen .logos-wrappr im Markup machen -50% zu einem nahtlosen Loop. */
+.marquee-wrapper {
+  overflow: hidden !important;
+}
+
+.marquee-track {
+  width: max-content !important;
+  flex-wrap: nowrap !important;
+  animation: featured-logos-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.logos-wrappr {
+  flex-shrink: 0;
+  flex-wrap: nowrap !important;
+}
+
+.logo-wrapper {
+  flex-shrink: 0 !important;
+}
+
+@keyframes featured-logos-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
 /* Alle Logos quadratisch und größer */
 .logo-wrapper img {
   width: 140px !important;
