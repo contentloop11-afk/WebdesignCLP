@@ -1,10 +1,14 @@
 (function () {
   const INTERVAL_MS = 5000;
+  // Auf Ultrawide-Monitoren (>= 21:9) nicht zeigen — Video ist auf 16:9 gemastered,
+  // Mask zentriert bei 50% 40%, links/rechts entstünde nichts Sinnvolles.
+  const ULTRAWIDE_RATIO = 21 / 9;
   // WebM Alpha für Chrome/FF, MP4 Fallback für Safari/iOS
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const VIDEO_SRC = isSafari ? './glitch-hero.mp4' : './glitch-hero.webm';
 
   function init() {
+    if (window.innerWidth / window.innerHeight >= ULTRAWIDE_RATIO) return;
     const hero = document.querySelector('.home-hero-section');
     const silhouette = document.querySelector('.silhouette');
     if (!hero || !silhouette) return;
