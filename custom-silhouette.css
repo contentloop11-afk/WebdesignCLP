@@ -458,3 +458,67 @@ img[src*="Quadcopter.png"]:hover {
     }
 }
 
+/* =====================================================
+   ULTRAWIDE — min-aspect-ratio: 21/9
+   Hero-Intro praesenter, editorial, mit Charakter
+   ===================================================== */
+
+@media (min-aspect-ratio: 21/9) {
+
+    .home-hero-content-wrapper {
+        padding-left: clamp(40px, 5vw, 120px) !important;
+        padding-right: clamp(40px, 5vw, 120px) !important;
+    }
+
+    .ai-artist {
+        font-size: clamp(14px, 1.05vw, 22px) !important;
+        letter-spacing: 6px !important;
+        font-weight: 600 !important;
+        opacity: 0.85 !important;
+    }
+
+    .intro-wrapper {
+        max-width: 38vw !important;
+    }
+
+    .intro-text {
+        font-size: clamp(28px, 2.1vw, 44px) !important;
+        line-height: 1.18 !important;
+        letter-spacing: -0.5px !important;
+        font-weight: 600 !important;
+        text-wrap: balance;
+        background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #ffffff 55%,
+            rgba(255, 255, 255, 0.55) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        padding-left: 26px;
+    }
+
+    /* Editorial accent bar links vom Text */
+    .intro-text::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.35em;
+        bottom: 0.35em;
+        width: 3px;
+        background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        border-radius: 2px;
+    }
+
+    /* Name (LARS KUNDE) auf Ultrawide nicht ins Lächerliche skalieren */
+    h1.name {
+        font-size: min(18vw, 360px) !important;
+    }
+}
+
