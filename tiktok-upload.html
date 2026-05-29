@@ -7,61 +7,55 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0f;--card:#161b22;--border:#21262d;--accent:#58a6ff;--text:#e6edf3;--muted:#8b949e;--success:#3fb950;--tiktok:#fe2c55;--radius:12px}
+:root{--bg:#0a0a0f;--card:#161b22;--border:#21262d;--accent:#58a6ff;--text:#e6edf3;--muted:#8b949e;--success:#3fb950;--tiktok:#fe2c55;--cyan:#25f4ee;--radius:12px}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}
 a{color:var(--accent);text-decoration:none}
 
 .header{width:100%;padding:20px 24px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
-.header .logo{font-size:20px;font-weight:700;letter-spacing:-.5px}
-.header .logo span{color:var(--accent)}
-.header .badge{font-size:11px;background:var(--border);padding:3px 8px;border-radius:20px;color:var(--muted)}
+.header .logo{font-size:20px;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:9px}
+.header .logo .mk{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--cyan),var(--tiktok));display:grid;place-items:center;color:#0a0a0f;font-size:13px}
+.header .badge{font-size:11px;background:var(--border);padding:3px 8px;border-radius:20px;color:var(--muted);margin-left:auto}
 
 .container{max-width:620px;width:100%;padding:32px 20px;flex:1}
 
-/* Stepper */
 .stepper{display:flex;justify-content:center;gap:8px;margin-bottom:36px}
-.step-dot{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--muted);transition:all .3s ease;position:relative}
+.step-dot{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--muted);transition:all .3s ease}
 .step-dot.active{border-color:var(--accent);color:var(--accent);box-shadow:0 0 12px rgba(88,166,255,.25)}
 .step-dot.done{border-color:var(--success);color:var(--success);background:rgba(63,185,80,.1)}
 .step-line{width:48px;height:2px;background:var(--border);align-self:center;border-radius:1px;transition:background .3s}
 .step-line.done{background:var(--success)}
 
-/* Cards */
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;transition:opacity .3s,transform .3s}
 .card.hidden{display:none}
 .card h2{font-size:16px;margin-bottom:6px}
 .card p.sub{font-size:13px;color:var(--muted);margin-bottom:20px}
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;width:100%;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;width:100%;justify-content:center;font-family:inherit}
 .btn-tiktok{background:var(--tiktok);color:#fff}
 .btn-tiktok:hover{filter:brightness(1.15);transform:translateY(-1px)}
 .btn-accent{background:var(--accent);color:#0a0a0f}
 .btn-accent:hover{filter:brightness(1.15);transform:translateY(-1px)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
 
-/* Drop zone */
 .dropzone{border:2px dashed var(--border);border-radius:var(--radius);padding:40px 20px;text-align:center;cursor:pointer;transition:all .25s}
 .dropzone:hover,.dropzone.dragover{border-color:var(--accent);background:rgba(88,166,255,.04)}
 .dropzone i{font-size:32px;color:var(--muted);margin-bottom:12px}
 .dropzone p{color:var(--muted);font-size:13px}
 .dropzone .pick{color:var(--accent);font-weight:600}
 
-/* Preview */
 .preview{margin-top:16px;border-radius:8px;overflow:hidden;position:relative;display:none}
 .preview video{width:100%;max-height:300px;object-fit:contain;background:#000;border-radius:8px}
 .preview .file-info{display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:12px;color:var(--muted)}
 .preview .remove{color:var(--tiktok);cursor:pointer;font-size:12px;font-weight:600}
 
-/* Form fields */
 .field{margin-bottom:16px}
 .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--muted)}
-.field textarea,.field input[type=text]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .2s}
-.field textarea:focus,.field input:focus{outline:none;border-color:var(--accent)}
+.field textarea,.field input[type=text],.field select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .2s}
+.field textarea:focus,.field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
 .field textarea{min-height:80px}
 .field .char-count{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
+.field .hint{font-size:11px;color:var(--muted);margin-top:6px}
 
-/* Status */
 .status{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-top:20px;display:none}
 .status .status-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-weight:600;font-size:14px}
 .status .status-header i{font-size:18px}
@@ -71,16 +65,13 @@ a{color:var(--accent);text-decoration:none}
 .status.success .status-header i{color:var(--success)}
 .status.error .status-header i{color:var(--tiktok)}
 
-/* Auth info */
 .auth-info{display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);border-radius:8px;margin-bottom:16px;font-size:13px}
 .auth-info i{color:var(--success)}
+.auth-info img{width:26px;height:26px;border-radius:50%;object-fit:cover}
 
-@media(max-width:500px){
-  .container{padding:20px 14px}
-  .card{padding:20px 16px}
-  .dropzone{padding:28px 16px}
-}
+.notice{font-size:12px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:14px;line-height:1.5}
 
+@media(max-width:500px){.container{padding:20px 14px}.card{padding:20px 16px}.dropzone{padding:28px 16px}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card{animation:fadeUp .35s ease both}
 </style>
@@ -88,8 +79,8 @@ a{color:var(--accent);text-decoration:none}
 <body>
 
 <div class="header">
-  <div class="logo"><span>Webdesign CLP</span></div>
-  <div class="badge">TikTok Content API</div>
+  <div class="logo"><span class="mk"><i class="fa-solid fa-bolt"></i></span>Webdesign CLP</div>
+  <div class="badge">TikTok Content Posting API</div>
 </div>
 
 <div class="container">
@@ -105,11 +96,12 @@ a{color:var(--accent);text-decoration:none}
 
   <!-- Step 1: Auth -->
   <div class="card" id="step1">
-    <h2><i class="fa-brands fa-tiktok"></i> &nbsp;Connect Your Account</h2>
-    <p class="sub">Authorize Webdesign CLP to publish videos on your behalf via TikTok's Content Posting API.</p>
+    <h2><i class="fa-brands fa-tiktok"></i> &nbsp;Connect your account</h2>
+    <p class="sub">Authorize Webdesign CLP to publish videos to your own TikTok account via the official Content Posting API.</p>
     <div class="auth-info" id="authStatus" style="display:none">
-      <i class="fa-solid fa-circle-check"></i>
-      <span id="authMsg">Authenticated</span>
+      <img id="authAvatar" alt="" style="display:none">
+      <i class="fa-solid fa-circle-check" id="authIcon"></i>
+      <span id="authMsg">Connected</span>
     </div>
     <button class="btn btn-tiktok" id="loginBtn" onclick="startOAuth()">
       <i class="fa-brands fa-tiktok"></i> Login with TikTok
@@ -118,13 +110,13 @@ a{color:var(--accent);text-decoration:none}
 
   <!-- Step 2: Upload -->
   <div class="card hidden" id="step2">
-    <h2><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp;Select Video</h2>
-    <p class="sub">Drag and drop your video or click to browse. MP4, WebM — max 4GB.</p>
+    <h2><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp;Select video</h2>
+    <p class="sub">Choose the video you want to post. MP4 or MOV.</p>
     <div class="dropzone" id="dropzone">
       <i class="fa-solid fa-film"></i>
       <p>Drop your video here or <span class="pick">browse files</span></p>
     </div>
-    <input type="file" id="fileInput" accept="video/mp4,video/webm,video/quicktime" style="display:none">
+    <input type="file" id="fileInput" accept="video/mp4,video/quicktime" style="display:none">
     <div class="preview" id="preview">
       <video id="videoEl" controls></video>
       <div class="file-info">
@@ -139,92 +131,64 @@ a{color:var(--accent);text-decoration:none}
 
   <!-- Step 3: Publish -->
   <div class="card hidden" id="step3">
-    <h2><i class="fa-solid fa-pen-to-square"></i> &nbsp;Post Details</h2>
-    <p class="sub">Add a caption and hashtags, then publish.</p>
+    <h2><i class="fa-solid fa-pen-to-square"></i> &nbsp;Post details</h2>
+    <p class="sub">Add a caption, choose who can see it, then publish to TikTok.</p>
     <div class="field">
       <label>Caption</label>
       <textarea id="caption" maxlength="2200" placeholder="Write your caption..."></textarea>
       <div class="char-count"><span id="charCount">0</span>/2200</div>
     </div>
     <div class="field">
-      <label>Hashtags</label>
-      <input type="text" id="hashtags" placeholder="#fyp #viral #content">
+      <label>Who can view this post</label>
+      <select id="privacy">
+        <option value="PUBLIC_TO_EVERYONE">Public — everyone</option>
+        <option value="MUTUAL_FOLLOW_FRIENDS">Friends — mutual follows</option>
+        <option value="FOLLOWER_OF_CREATOR">Followers</option>
+        <option value="SELF_ONLY" selected>Private — only me</option>
+      </select>
+      <div class="hint">You choose the visibility for every post. Until the app is approved by TikTok, posts are published as private.</div>
     </div>
-    <button class="btn btn-tiktok" onclick="publish()">
+    <button class="btn btn-tiktok" id="publishBtn" onclick="publish()">
       <i class="fa-brands fa-tiktok"></i> Publish to TikTok
     </button>
   </div>
 
   <!-- Status -->
   <div class="status" id="status">
-    <div class="status-header"><i class="fa-solid fa-spinner fa-spin"></i><span id="statusTitle">Uploading...</span></div>
+    <div class="status-header"><i class="fa-solid fa-spinner fa-spin"></i><span id="statusTitle">Working...</span></div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="status-msg" id="statusMsg">Initializing upload...</div>
+    <div class="status-msg" id="statusMsg">Starting...</div>
   </div>
 
 </div>
 
 <script>
-// ── CONFIG ──
-const CLIENT_KEY = 'awjupjfpfigcby5y';
-const REDIRECT_URI = 'https://webdesignclp.vercel.app/tiktok-upload.html';
-const SCOPE = 'user.info.basic,video.publish';
-
-let accessToken = null;
 let selectedFile = null;
 
 // ── OAuth ──
-function startOAuth() {
-  // TikTok OAuth 2.0 Authorization endpoint
-  // Docs: https://developers.tiktok.com/doc/login-kit-web
-  const csrfState = Math.random().toString(36).substring(2);
-  const authUrl = `https://www.tiktok.com/v2/auth/authorize/?` +
-    `client_key=${CLIENT_KEY}` +
-    `&scope=${SCOPE}` +
-    `&response_type=code` +
-    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-    `&state=${csrfState}`;
-  window.location.href = authUrl;
-}
+// Server-side flow: redirect to our own /api/auth/login, which builds the TikTok
+// authorize URL and (after callback) exchanges the code for a token server-side.
+function startOAuth() { window.location.href = '/api/auth/login'; }
 
-// Handle OAuth callback — read authorization code from URL
-function handleCallback() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  const error = params.get('error');
-
-  if (error) {
-    showAuth(false, 'Authorization denied: ' + (params.get('error_description') || error));
-    return;
-  }
-
-  if (code) {
-    // In production: exchange this code for an access_token via your backend
-    // POST https://open.tiktokapis.com/v2/oauth/token/
-    // { client_key, client_secret, code, grant_type: 'authorization_code', redirect_uri }
-    // client_secret must NEVER be exposed client-side
-
-    accessToken = 'demo_token_' + code.substring(0, 8);
-    showAuth(true, 'Connected — authorization code received');
-    window.history.replaceState({}, '', window.location.pathname);
-  }
-}
-
-function showAuth(success, msg) {
+function showConnected(name, avatar) {
   const el = document.getElementById('authStatus');
   el.style.display = 'flex';
-  document.getElementById('authMsg').textContent = msg;
-  if (success) {
-    document.getElementById('loginBtn').textContent = 'Connected';
-    document.getElementById('loginBtn').disabled = true;
-    setStepper(2);
-    setTimeout(() => { document.getElementById('step2').classList.remove('hidden'); }, 200);
-  } else {
-    el.style.background = 'rgba(254,44,85,.08)';
-    el.style.borderColor = 'rgba(254,44,85,.2)';
-    el.querySelector('i').className = 'fa-solid fa-circle-xmark';
-    el.querySelector('i').style.color = 'var(--tiktok)';
-  }
+  document.getElementById('authMsg').textContent = name ? ('Connected as @' + name) : 'Connected to TikTok';
+  if (avatar) { const a = document.getElementById('authAvatar'); a.src = avatar; a.style.display = 'block'; document.getElementById('authIcon').style.display = 'none'; }
+  const b = document.getElementById('loginBtn');
+  b.textContent = 'Connected'; b.disabled = true;
+  setStepper(2);
+  document.getElementById('step2').classList.remove('hidden');
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('authStatus');
+  el.style.display = 'flex';
+  el.style.background = 'rgba(254,44,85,.08)';
+  el.style.borderColor = 'rgba(254,44,85,.2)';
+  document.getElementById('authIcon').className = 'fa-solid fa-circle-xmark';
+  document.getElementById('authIcon').style.color = 'var(--tiktok)';
+  document.getElementById('authMsg').textContent = 'Authorization failed: ' + msg;
 }
 
 // ── Stepper ──
@@ -234,35 +198,28 @@ function setStepper(step) {
     dot.classList.toggle('active', i === step);
     dot.classList.toggle('done', i < step);
   }
-  if (step > 1) document.getElementById('sl1').classList.add('done');
-  if (step > 2) document.getElementById('sl2').classList.add('done');
+  document.getElementById('sl1').classList.toggle('done', step > 1);
+  document.getElementById('sl2').classList.toggle('done', step > 2);
 }
 
 // ── File handling ──
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
-
 dropzone.addEventListener('click', () => fileInput.click());
 dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
 dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-dropzone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropzone.classList.remove('dragover');
-  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-});
+dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dragover'); if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
 fileInput.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
 
 function handleFile(file) {
   if (!file.type.startsWith('video/')) return;
   selectedFile = file;
-  const videoEl = document.getElementById('videoEl');
-  videoEl.src = URL.createObjectURL(file);
+  document.getElementById('videoEl').src = URL.createObjectURL(file);
   document.getElementById('fileName').textContent = file.name + ' — ' + (file.size / 1048576).toFixed(1) + ' MB';
   document.getElementById('preview').style.display = 'block';
   dropzone.style.display = 'none';
   document.getElementById('nextBtn').disabled = false;
 }
-
 function removeFile() {
   selectedFile = null;
   document.getElementById('videoEl').src = '';
@@ -271,76 +228,101 @@ function removeFile() {
   document.getElementById('nextBtn').disabled = true;
   fileInput.value = '';
 }
-
 function goStep3() {
   setStepper(3);
   document.getElementById('step3').classList.remove('hidden');
   document.getElementById('step3').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ── Caption counter ──
 document.getElementById('caption').addEventListener('input', e => {
   document.getElementById('charCount').textContent = e.target.value.length;
 });
 
-// ── Publish (demo flow) ──
+// ── Status UI helpers ──
+function setStatus(state, title, msg, pct) {
+  const el = document.getElementById('status');
+  el.style.display = 'block';
+  el.className = 'status' + (state ? ' ' + state : '');
+  document.getElementById('statusTitle').textContent = title;
+  document.getElementById('statusMsg').textContent = msg;
+  if (typeof pct === 'number') document.getElementById('progressFill').style.width = pct + '%';
+  const icon = document.querySelector('#status .status-header i');
+  if (state === 'success') icon.className = 'fa-solid fa-circle-check';
+  else if (state === 'error') icon.className = 'fa-solid fa-circle-xmark';
+  else icon.className = 'fa-solid fa-spinner fa-spin';
+}
+const delay = ms => new Promise(r => setTimeout(r, ms));
+
+// ── Real publish flow ──
 async function publish() {
-  const caption = document.getElementById('caption').value;
-  const hashtags = document.getElementById('hashtags').value;
-  const statusEl = document.getElementById('status');
-  const fill = document.getElementById('progressFill');
+  if (!selectedFile) return;
+  const title = document.getElementById('caption').value;
+  const privacy_level = document.getElementById('privacy').value;
+  document.getElementById('publishBtn').disabled = true;
+  document.getElementById('status').scrollIntoView({ behavior: 'smooth' });
 
-  statusEl.style.display = 'block';
-  statusEl.className = 'status';
-  statusEl.scrollIntoView({ behavior: 'smooth' });
+  try {
+    // 1. Init the post (server-side, holds the access token)
+    setStatus('', 'Initializing...', 'Creating the post via TikTok Content Posting API...', 12);
+    const initRes = await fetch('/api/publish/init', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, privacy_level, video_size: selectedFile.size }),
+    });
+    const init = await initRes.json();
+    if (!initRes.ok || !init.upload_url) throw new Error(init.error || 'Init failed');
 
-  const steps = [
-    { pct: 15, title: 'Uploading...', msg: 'Initializing video upload via Content Posting API...' },
-    { pct: 40, title: 'Uploading...', msg: 'Sending video chunks to TikTok servers...' },
-    { pct: 70, title: 'Processing...', msg: 'TikTok is processing the video...' },
-    { pct: 90, title: 'Publishing...', msg: 'Applying caption and hashtags...' },
-    { pct: 100, title: 'Published!', msg: 'Your video is now live on TikTok.' },
-  ];
+    // 2. Upload the video bytes directly to TikTok (single chunk)
+    setStatus('', 'Uploading...', 'Sending your video to TikTok...', 45);
+    const putRes = await fetch(init.upload_url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': selectedFile.type || 'video/mp4',
+        'Content-Range': `bytes 0-${selectedFile.size - 1}/${selectedFile.size}`,
+      },
+      body: selectedFile,
+    });
+    if (!putRes.ok && putRes.status !== 201 && putRes.status !== 206) {
+      throw new Error('Upload failed (HTTP ' + putRes.status + ')');
+    }
 
-  /*
-   * PRODUCTION API FLOW (Content Posting API v2):
-   *
-   * 1. POST https://open.tiktokapis.com/v2/post/publish/inbox/video/init/
-   *    Headers: { Authorization: 'Bearer ' + accessToken }
-   *    Body: { post_info: { title: caption, privacy_level: 'SELF_ONLY' },
-   *            source_info: { source: 'FILE_UPLOAD', video_size: file.size, chunk_size: 10000000, total_chunk_count: N } }
-   *    → Returns: publish_id, upload_url
-   *
-   * 2. PUT upload_url with video binary chunks
-   *    Content-Range: bytes start-end/total
-   *
-   * 3. POST https://open.tiktokapis.com/v2/post/publish/status/fetch/
-   *    Body: { publish_id }
-   *    → Poll until status is PUBLISH_COMPLETE
-   */
-
-  for (const step of steps) {
-    await delay(900);
-    fill.style.width = step.pct + '%';
-    document.getElementById('statusTitle').textContent = step.title;
-    document.getElementById('statusMsg').textContent = step.msg;
+    // 3. Poll publish status
+    setStatus('', 'Processing...', 'TikTok is processing your video...', 70);
+    let done = false, tries = 0;
+    while (!done && tries < 40) {
+      tries++;
+      await delay(3000);
+      const st = await (await fetch('/api/publish/status?id=' + encodeURIComponent(init.publish_id))).json();
+      if (st.status === 'PUBLISH_COMPLETE') {
+        done = true;
+        setStatus('success', 'Published!', privacy_level === 'SELF_ONLY'
+          ? 'Posted to your TikTok account (private — visible to you).'
+          : 'Your video has been posted to your TikTok account.', 100);
+      } else if (st.status === 'FAILED') {
+        throw new Error(st.fail_reason || 'TikTok reported the post failed');
+      } else {
+        setStatus('', 'Processing...', 'Status: ' + st.status + '...', Math.min(70 + tries * 2, 95));
+      }
+    }
+    if (!done) throw new Error('Timed out waiting for TikTok to finish processing');
+  } catch (e) {
+    setStatus('error', 'Could not publish', e.message || String(e), 100);
+    document.getElementById('publishBtn').disabled = false;
   }
-
-  await delay(500);
-  statusEl.classList.add('success');
-  document.querySelector('#status .status-header i').className = 'fa-solid fa-circle-check';
 }
 
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-// ── Init ──
-handleCallback();
-
-// For demo: allow skipping auth with double-click on logo
-document.querySelector('.logo').addEventListener('dblclick', () => {
-  accessToken = 'demo_mode';
-  showAuth(true, 'Demo mode — no real connection');
-});
+// ── Init on load: handle the OAuth return ──
+(function init() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('error')) { showAuthError(p.get('error')); return; }
+  if (p.get('connected')) {
+    window.history.replaceState({}, '', window.location.pathname);
+    fetch('/api/me').then(r => r.json()).then(u => {
+      if (u && !u.error) showConnected(u.display_name, u.avatar_url);
+      else showConnected(null, null);
+    }).catch(() => showConnected(null, null));
+  }
+})();
 </script>
 </body>
 </html>
