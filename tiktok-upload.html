@@ -55,6 +55,9 @@ a{color:var(--accent);text-decoration:none}
 .field textarea{min-height:80px}
 .field .char-count{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
 .field .hint{font-size:11px;color:var(--muted);margin-top:6px}
+.seg{display:flex;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:4px}
+.seg-btn{flex:1;padding:9px 12px;border-radius:6px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .18s}
+.seg-btn.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.3)}
 
 .status{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-top:20px;display:none}
 .status .status-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-weight:600;font-size:14px}
@@ -132,21 +135,31 @@ a{color:var(--accent);text-decoration:none}
   <!-- Step 3: Publish -->
   <div class="card hidden" id="step3">
     <h2><i class="fa-solid fa-pen-to-square"></i> &nbsp;Post details</h2>
-    <p class="sub">Add a caption, choose who can see it, then publish to TikTok.</p>
+    <p class="sub">Choose how to publish, then send it to TikTok.</p>
     <div class="field">
-      <label>Caption</label>
-      <textarea id="caption" maxlength="2200" placeholder="Write your caption..."></textarea>
-      <div class="char-count"><span id="charCount">0</span>/2200</div>
+      <label>Publishing method</label>
+      <div class="seg">
+        <button type="button" class="seg-btn active" id="segDirect" onclick="setMode('direct')">Direct post</button>
+        <button type="button" class="seg-btn" id="segDraft" onclick="setMode('draft')">Save as draft</button>
+      </div>
+      <div class="hint" id="modeHint">Direct post — published straight to your TikTok profile (uses <strong>video.publish</strong>).</div>
     </div>
-    <div class="field">
-      <label>Who can view this post</label>
-      <select id="privacy">
-        <option value="PUBLIC_TO_EVERYONE">Public — everyone</option>
-        <option value="MUTUAL_FOLLOW_FRIENDS">Friends — mutual follows</option>
-        <option value="FOLLOWER_OF_CREATOR">Followers</option>
-        <option value="SELF_ONLY" selected>Private — only me</option>
-      </select>
-      <div class="hint">You choose the visibility for every post. Until the app is approved by TikTok, posts are published as private.</div>
+    <div id="directFields">
+      <div class="field">
+        <label>Caption</label>
+        <textarea id="caption" maxlength="2200" placeholder="Write your caption..."></textarea>
+        <div class="char-count"><span id="charCount">0</span>/2200</div>
+      </div>
+      <div class="field">
+        <label>Who can view this post</label>
+        <select id="privacy">
+          <option value="PUBLIC_TO_EVERYONE">Public — everyone</option>
+          <option value="MUTUAL_FOLLOW_FRIENDS">Friends — mutual follows</option>
+          <option value="FOLLOWER_OF_CREATOR">Followers</option>
+          <option value="SELF_ONLY" selected>Private — only me</option>
+        </select>
+        <div class="hint">You choose the visibility for every post. Until the app is approved by TikTok, posts are published as private.</div>
+      </div>
     </div>
     <button class="btn btn-tiktok" id="publishBtn" onclick="publish()">
       <i class="fa-brands fa-tiktok"></i> Publish to TikTok
@@ -164,6 +177,21 @@ a{color:var(--accent);text-decoration:none}
 
 <script>
 let selectedFile = null;
+let mode = 'direct'; // 'direct' (video.publish) | 'draft' (video.upload)
+
+// ── Publishing method toggle ──
+function setMode(m) {
+  mode = m;
+  document.getElementById('segDirect').classList.toggle('active', m === 'direct');
+  document.getElementById('segDraft').classList.toggle('active', m === 'draft');
+  document.getElementById('directFields').style.display = m === 'draft' ? 'none' : '';
+  document.getElementById('modeHint').innerHTML = m === 'draft'
+    ? 'Save as draft — uploads to your TikTok inbox to finish &amp; post inside the TikTok app (uses <strong>video.upload</strong>).'
+    : 'Direct post — published straight to your TikTok profile (uses <strong>video.publish</strong>).';
+  document.getElementById('publishBtn').innerHTML = m === 'draft'
+    ? '<i class="fa-solid fa-inbox"></i> Upload draft to TikTok'
+    : '<i class="fa-brands fa-tiktok"></i> Publish to TikTok';
+}
 
 // ── OAuth ──
 // Server-side flow: redirect to our own /api/auth/login, which builds the TikTok
@@ -263,11 +291,13 @@ async function publish() {
 
   try {
     // 1. Init the post (server-side, holds the access token)
-    setStatus('', 'Initializing...', 'Creating the post via TikTok Content Posting API...', 12);
+    setStatus('', 'Initializing...', mode === 'draft'
+      ? 'Creating a draft via TikTok Content Posting API (video.upload)...'
+      : 'Creating the post via TikTok Content Posting API (video.publish)...', 12);
     const initRes = await fetch('/api/publish/init', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, privacy_level, video_size: selectedFile.size }),
+      body: JSON.stringify({ mode, title, privacy_level, video_size: selectedFile.size }),
     });
     const init = await initRes.json();
     if (!initRes.ok || !init.upload_url) throw new Error(init.error || 'Init failed');
@@ -293,7 +323,10 @@ async function publish() {
       tries++;
       await delay(3000);
       const st = await (await fetch('/api/publish/status?id=' + encodeURIComponent(init.publish_id))).json();
-      if (st.status === 'PUBLISH_COMPLETE') {
+      if (st.status === 'SEND_TO_USER_INBOX') {
+        done = true;
+        setStatus('success', 'Draft uploaded!', 'Sent to your TikTok inbox — open the TikTok app to finish and post it.', 100);
+      } else if (st.status === 'PUBLISH_COMPLETE') {
         done = true;
         setStatus('success', 'Published!', privacy_level === 'SELF_ONLY'
           ? 'Posted to your TikTok account (private — visible to you).'
