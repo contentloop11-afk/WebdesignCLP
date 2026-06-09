@@ -37,6 +37,7 @@ module.exports = async (req, res) => {
   if (!token) { res.statusCode = 401; return res.json({ error: 'not_authenticated' }); }
 
   const {
+    mode = 'direct',          // 'direct' (video.publish) | 'draft' (video.upload)
     title = '',
     privacy_level,
     disable_comment = false,
@@ -47,39 +48,53 @@ module.exports = async (req, res) => {
     video_size,
   } = await readJson(req);
 
-  // Privacy is a deliberate choice — no default. Reject if missing/invalid.
-  if (!privacy_level || !VALID_PRIVACY.includes(privacy_level)) {
-    res.statusCode = 400;
-    return res.json({ error: 'missing_privacy_level' });
-  }
   if (!video_size || video_size < 1) { res.statusCode = 400; return res.json({ error: 'missing_video_size' }); }
 
-  // TikTok rule: branded content (paid partnership) cannot be private.
-  if (brand_content_toggle && privacy_level === 'SELF_ONLY') {
-    res.statusCode = 400;
-    return res.json({ error: 'branded_content_cannot_be_private' });
-  }
-
-  const payload = {
-    post_info: {
-      title: String(title).slice(0, 2200),
-      privacy_level, // unaudited apps are forced to SELF_ONLY by TikTok regardless
-      disable_comment: !!disable_comment,
-      disable_duet: !!disable_duet,
-      disable_stitch: !!disable_stitch,
-      brand_content_toggle: !!brand_content_toggle, // paid partnership / branded content
-      brand_organic_toggle: !!brand_organic_toggle, // "your brand"
-    },
-    source_info: {
-      source: 'FILE_UPLOAD',
-      video_size,
-      chunk_size: video_size,   // single chunk
-      total_chunk_count: 1,
-    },
+  const source_info = {
+    source: 'FILE_UPLOAD',
+    video_size,
+    chunk_size: video_size,   // single chunk
+    total_chunk_count: 1,
   };
 
+  // Two TikTok endpoints — one per scope:
+  //   draft  → /inbox/video/init/ (video.upload): lands in the user's TikTok inbox,
+  //            the creator finishes & posts it inside the TikTok app. No post_info /
+  //            consent settings needed here (TikTok's own composer handles those).
+  //   direct → /video/init/       (video.publish): posts straight to the profile,
+  //            so all consent settings are required and validated.
+  let endpoint, payload;
+  if (mode === 'draft') {
+    endpoint = 'https://open.tiktokapis.com/v2/post/publish/inbox/video/init/';
+    payload = { source_info };
+  } else {
+    // Privacy is a deliberate choice — no default. Reject if missing/invalid.
+    if (!privacy_level || !VALID_PRIVACY.includes(privacy_level)) {
+      res.statusCode = 400;
+      return res.json({ error: 'missing_privacy_level' });
+    }
+    // TikTok rule: branded content (paid partnership) cannot be private.
+    if (brand_content_toggle && privacy_level === 'SELF_ONLY') {
+      res.statusCode = 400;
+      return res.json({ error: 'branded_content_cannot_be_private' });
+    }
+    endpoint = 'https://open.tiktokapis.com/v2/post/publish/video/init/';
+    payload = {
+      post_info: {
+        title: String(title).slice(0, 2200),
+        privacy_level, // unaudited apps are forced to SELF_ONLY by TikTok regardless
+        disable_comment: !!disable_comment,
+        disable_duet: !!disable_duet,
+        disable_stitch: !!disable_stitch,
+        brand_content_toggle: !!brand_content_toggle, // paid partnership / branded content
+        brand_organic_toggle: !!brand_organic_toggle, // "your brand"
+      },
+      source_info,
+    };
+  }
+
   try {
-    const r = await fetch('https://open.tiktokapis.com/v2/post/publish/video/init/', {
+    const r = await fetch(endpoint, {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + token,

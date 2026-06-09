@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     return res.end('Server not configured: missing TIKTOK_CLIENT_KEY / TIKTOK_REDIRECT_URI');
   }
 
-  const scope = 'user.info.basic,video.publish';
+  const scope = 'user.info.basic,video.publish,video.upload';
   const state = crypto.randomBytes(16).toString('hex');
 
   // CSRF state in a short-lived HttpOnly cookie, verified in the callback.
