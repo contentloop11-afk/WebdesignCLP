@@ -74,6 +74,43 @@ a{color:var(--accent);text-decoration:none}
 
 .notice{font-size:12px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:14px;line-height:1.5}
 
+/* Creator chip shown in the composer (TikTok requires avatar + name when posting) */
+.creator-chip{display:flex;align-items:center;gap:11px;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;margin-bottom:18px}
+.creator-chip img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--border)}
+.creator-chip .ci-name{font-size:14px;font-weight:600;color:var(--text)}
+.creator-chip .ci-handle{font-size:12px;color:var(--muted)}
+.creator-chip .ci-spin{color:var(--muted);font-size:13px}
+
+/* Toggle rows (Comment / Duet / Stitch / Disclose) */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-row .tr-label{font-size:14px;color:var(--text)}
+.toggle-row .tr-sub{font-size:11px;color:var(--muted);margin-top:2px;max-width:340px}
+.toggle-row.disabled .tr-label,.toggle-row.disabled .tr-sub{color:var(--border)}
+.switch{position:relative;width:44px;height:26px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.switch .slider{position:absolute;inset:0;background:var(--border);border-radius:26px;cursor:pointer;transition:.2s}
+.switch .slider:before{content:"";position:absolute;height:20px;width:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+.slider{background:var(--accent)}
+.switch input:checked+.slider:before{transform:translateX(18px)}
+.switch input:disabled+.slider{opacity:.35;cursor:not-allowed}
+
+/* Disclosure sub-options (Your brand / Branded content) */
+.disclose-box{margin-top:12px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;display:none}
+.disclose-box.show{display:block;animation:fadeUp .25s ease both}
+.check-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer}
+.check-row input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
+.check-row .cr-label{font-size:13px;font-weight:600;color:var(--text)}
+.check-row .cr-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* Consent declaration — wording changes with the selection */
+.consent{font-size:12px;color:var(--muted);line-height:1.55;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin:16px 0}
+.consent a{color:var(--accent)}
+.warn{font-size:12px;color:var(--tiktok);background:rgba(254,44,85,.08);border:1px solid rgba(254,44,85,.2);border-radius:8px;padding:9px 13px;margin-top:10px;display:none}
+.warn.show{display:block}
+
+.section-label{font-size:13px;font-weight:600;color:var(--muted);margin:20px 0 8px}
+
 @media(max-width:500px){.container{padding:20px 14px}.card{padding:20px 16px}.dropzone{padding:28px 16px}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card{animation:fadeUp .35s ease both}
@@ -132,37 +169,69 @@ a{color:var(--accent);text-decoration:none}
     </button>
   </div>
 
-  <!-- Step 3: Publish -->
+  <!-- Step 3: Publish (Direct Post composer) -->
   <div class="card hidden" id="step3">
-    <h2><i class="fa-solid fa-pen-to-square"></i> &nbsp;Post details</h2>
-    <p class="sub">Choose how to publish, then send it to TikTok.</p>
+    <h2><i class="fa-solid fa-pen-to-square"></i> &nbsp;Post to TikTok</h2>
+    <p class="sub">Review the details below and publish straight to your TikTok profile (<strong>video.publish</strong>).</p>
+
+    <!-- Creator identity — TikTok requires avatar + name to be shown when posting -->
+    <div class="creator-chip" id="creatorChip">
+      <span class="ci-spin"><i class="fa-solid fa-spinner fa-spin"></i> Loading your TikTok account…</span>
+    </div>
+
     <div class="field">
-      <label>Publishing method</label>
-      <div class="seg">
-        <button type="button" class="seg-btn active" id="segDirect" onclick="setMode('direct')">Direct post</button>
-        <button type="button" class="seg-btn" id="segDraft" onclick="setMode('draft')">Save as draft</button>
-      </div>
-      <div class="hint" id="modeHint">Direct post — published straight to your TikTok profile (uses <strong>video.publish</strong>).</div>
+      <label>Caption</label>
+      <textarea id="caption" maxlength="2200" placeholder="Write your caption..."></textarea>
+      <div class="char-count"><span id="charCount">0</span>/2200</div>
     </div>
-    <div id="directFields">
-      <div class="field">
-        <label>Caption</label>
-        <textarea id="caption" maxlength="2200" placeholder="Write your caption..."></textarea>
-        <div class="char-count"><span id="charCount">0</span>/2200</div>
-      </div>
-      <div class="field">
-        <label>Who can view this post</label>
-        <select id="privacy">
-          <option value="PUBLIC_TO_EVERYONE">Public — everyone</option>
-          <option value="MUTUAL_FOLLOW_FRIENDS">Friends — mutual follows</option>
-          <option value="FOLLOWER_OF_CREATOR">Followers</option>
-          <option value="SELF_ONLY" selected>Private — only me</option>
-        </select>
-        <div class="hint">You choose the visibility for every post. Until the app is approved by TikTok, posts are published as private.</div>
-      </div>
+
+    <div class="field">
+      <label>Who can view this video</label>
+      <select id="privacy">
+        <option value="" selected disabled>Select who can view this video</option>
+      </select>
+      <div class="hint">You choose the visibility for every post. Until the app is approved by TikTok, posts are published as private.</div>
     </div>
-    <button class="btn btn-tiktok" id="publishBtn" onclick="publish()">
-      <i class="fa-brands fa-tiktok"></i> Publish to TikTok
+
+    <div class="section-label">Allow users to</div>
+    <div class="toggle-row" id="row-comment">
+      <div><div class="tr-label">Comment</div></div>
+      <label class="switch"><input type="checkbox" id="tg-comment"><span class="slider"></span></label>
+    </div>
+    <div class="toggle-row" id="row-duet">
+      <div><div class="tr-label">Duet</div></div>
+      <label class="switch"><input type="checkbox" id="tg-duet"><span class="slider"></span></label>
+    </div>
+    <div class="toggle-row" id="row-stitch">
+      <div><div class="tr-label">Stitch</div></div>
+      <label class="switch"><input type="checkbox" id="tg-stitch"><span class="slider"></span></label>
+    </div>
+
+    <div class="section-label">Content disclosure</div>
+    <div class="toggle-row" id="row-disclose">
+      <div>
+        <div class="tr-label">Disclose video content</div>
+        <div class="tr-sub">Turn on if this post promotes a brand, product or service — yours or someone you have a paid partnership with.</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="tg-disclose"><span class="slider"></span></label>
+    </div>
+    <div class="disclose-box" id="discloseBox">
+      <label class="check-row">
+        <input type="checkbox" id="cb-brand-organic">
+        <div><div class="cr-label">Your brand</div><div class="cr-sub">You are promoting yourself or your own business. Post will be labelled as promotional content.</div></div>
+      </label>
+      <label class="check-row">
+        <input type="checkbox" id="cb-brand-content">
+        <div><div class="cr-label">Branded content</div><div class="cr-sub">You are promoting another brand in a paid partnership. Cannot be set to private.</div></div>
+      </label>
+      <div class="warn" id="discloseWarn">Select at least one — “Your brand” or “Branded content” — to disclose this post.</div>
+    </div>
+
+    <!-- Consent declaration — wording updates with the selection above -->
+    <div class="consent" id="consent"></div>
+
+    <button class="btn btn-tiktok" id="publishBtn" onclick="publish()" disabled>
+      <i class="fa-brands fa-tiktok"></i> Post to TikTok
     </button>
   </div>
 
@@ -177,21 +246,14 @@ a{color:var(--accent);text-decoration:none}
 
 <script>
 let selectedFile = null;
-let mode = 'direct'; // 'direct' (video.publish) | 'draft' (video.upload)
+let creatorInfo = null; // populated from /api/publish/creator-info on entering step 3
 
-// ── Publishing method toggle ──
-function setMode(m) {
-  mode = m;
-  document.getElementById('segDirect').classList.toggle('active', m === 'direct');
-  document.getElementById('segDraft').classList.toggle('active', m === 'draft');
-  document.getElementById('directFields').style.display = m === 'draft' ? 'none' : '';
-  document.getElementById('modeHint').innerHTML = m === 'draft'
-    ? 'Save as draft — uploads to your TikTok inbox to finish &amp; post inside the TikTok app (uses <strong>video.upload</strong>).'
-    : 'Direct post — published straight to your TikTok profile (uses <strong>video.publish</strong>).';
-  document.getElementById('publishBtn').innerHTML = m === 'draft'
-    ? '<i class="fa-solid fa-inbox"></i> Upload draft to TikTok'
-    : '<i class="fa-brands fa-tiktok"></i> Publish to TikTok';
-}
+const PRIVACY_LABELS = {
+  PUBLIC_TO_EVERYONE: 'Public — everyone',
+  MUTUAL_FOLLOW_FRIENDS: 'Friends — mutual follows',
+  FOLLOWER_OF_CREATOR: 'Followers',
+  SELF_ONLY: 'Private — only me',
+};
 
 // ── OAuth ──
 // Server-side flow: redirect to our own /api/auth/login, which builds the TikTok
@@ -260,7 +322,103 @@ function goStep3() {
   setStepper(3);
   document.getElementById('step3').classList.remove('hidden');
   document.getElementById('step3').scrollIntoView({ behavior: 'smooth' });
+  loadCreatorInfo();
 }
+
+// ── Direct Post requires querying creator_info first ──
+// It tells us the avatar/name to show, which privacy levels are allowed, and
+// which interactions TikTok has disabled for this account. The UI must honour all.
+async function loadCreatorInfo() {
+  const chip = document.getElementById('creatorChip');
+  try {
+    const r = await fetch('/api/publish/creator-info');
+    const ci = await r.json();
+    if (!r.ok || ci.error) throw new Error(ci.error || 'creator_info_failed');
+    creatorInfo = ci;
+
+    // Creator identity (avatar + name) shown in the composer.
+    const name = ci.creator_nickname || ci.creator_username || 'Your TikTok account';
+    const handle = ci.creator_username ? ('@' + ci.creator_username) : '';
+    chip.innerHTML =
+      (ci.creator_avatar_url ? `<img src="${ci.creator_avatar_url}" alt="">` : `<img alt="">`) +
+      `<div><div class="ci-name">${name}</div>${handle ? `<div class="ci-handle">${handle}</div>` : ''}</div>`;
+
+    // Populate the privacy dropdown with ONLY the options TikTok allows — no default.
+    const sel = document.getElementById('privacy');
+    sel.querySelectorAll('option:not([value=""])').forEach(o => o.remove());
+    const opts = ci.privacy_level_options && ci.privacy_level_options.length
+      ? ci.privacy_level_options
+      : ['SELF_ONLY'];
+    opts.forEach(v => {
+      const o = document.createElement('option');
+      o.value = v;
+      o.textContent = PRIVACY_LABELS[v] || v;
+      sel.appendChild(o);
+    });
+
+    // Grey out interactions TikTok has disabled for this account, and force them off.
+    applyInteractionLock('comment', ci.comment_disabled);
+    applyInteractionLock('duet', ci.duet_disabled);
+    applyInteractionLock('stitch', ci.stitch_disabled);
+  } catch (e) {
+    chip.innerHTML = `<span class="ci-spin" style="color:var(--tiktok)"><i class="fa-solid fa-circle-xmark"></i> Could not load your TikTok account info: ${e.message}</span>`;
+  }
+  refreshComposer();
+}
+
+function applyInteractionLock(kind, disabled) {
+  const row = document.getElementById('row-' + kind);
+  const input = document.getElementById('tg-' + kind);
+  if (disabled) {
+    input.checked = false;
+    input.disabled = true;
+    row.classList.add('disabled');
+    if (!row.querySelector('.tr-sub')) {
+      const sub = document.createElement('div');
+      sub.className = 'tr-sub';
+      sub.textContent = 'Turned off in your TikTok account settings.';
+      row.querySelector('div').appendChild(sub);
+    }
+  }
+}
+
+// ── Branded-content rule + consent wording + publish gating ──
+function refreshComposer() {
+  const disclose = document.getElementById('tg-disclose').checked;
+  const yourBrand = document.getElementById('cb-brand-organic').checked;
+  const branded = document.getElementById('cb-brand-content').checked;
+  const sel = document.getElementById('privacy');
+
+  document.getElementById('discloseBox').classList.toggle('show', disclose);
+
+  // Branded content cannot be private: disable the SELF_ONLY option, and if it's
+  // currently selected, clear the choice so the user must pick an allowed one.
+  const selfOpt = sel.querySelector('option[value="SELF_ONLY"]');
+  if (selfOpt) {
+    selfOpt.disabled = disclose && branded;
+    if (selfOpt.disabled && sel.value === 'SELF_ONLY') sel.value = '';
+  }
+  document.getElementById('discloseWarn').classList.toggle('show', disclose && !yourBrand && !branded);
+
+  // Consent declaration text — changes with the disclosure selection.
+  const consent = document.getElementById('consent');
+  const music = `<a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" target="_blank" rel="noopener">Music Usage Confirmation</a>`;
+  const brandedPolicy = `<a href="https://www.tiktok.com/legal/page/global/bc-policy/en" target="_blank" rel="noopener">Branded Content Policy</a>`;
+  if (disclose && branded) {
+    consent.innerHTML = `By posting, you agree to TikTok's ${brandedPolicy} and ${music}.`;
+  } else {
+    consent.innerHTML = `By posting, you agree to TikTok's ${music}.`;
+  }
+
+  // Publish gating: a privacy level must be chosen, and if disclosure is on at
+  // least one sub-option must be selected.
+  const privacyChosen = !!sel.value;
+  const discloseValid = !disclose || yourBrand || branded;
+  document.getElementById('publishBtn').disabled = !(selectedFile && privacyChosen && discloseValid);
+}
+
+['privacy','tg-comment','tg-duet','tg-stitch','tg-disclose','cb-brand-organic','cb-brand-content']
+  .forEach(id => document.getElementById(id).addEventListener('change', refreshComposer));
 
 document.getElementById('caption').addEventListener('input', e => {
   document.getElementById('charCount').textContent = e.target.value.length;
@@ -286,18 +444,28 @@ async function publish() {
   if (!selectedFile) return;
   const title = document.getElementById('caption').value;
   const privacy_level = document.getElementById('privacy').value;
+  if (!privacy_level) { refreshComposer(); return; }
+  const payload = {
+    title,
+    privacy_level,
+    // toggles are "Allow X"; TikTok's API wants the inverse (disable_X)
+    disable_comment: !document.getElementById('tg-comment').checked,
+    disable_duet: !document.getElementById('tg-duet').checked,
+    disable_stitch: !document.getElementById('tg-stitch').checked,
+    brand_organic_toggle: document.getElementById('tg-disclose').checked && document.getElementById('cb-brand-organic').checked,
+    brand_content_toggle: document.getElementById('tg-disclose').checked && document.getElementById('cb-brand-content').checked,
+    video_size: selectedFile.size,
+  };
   document.getElementById('publishBtn').disabled = true;
   document.getElementById('status').scrollIntoView({ behavior: 'smooth' });
 
   try {
     // 1. Init the post (server-side, holds the access token)
-    setStatus('', 'Initializing...', mode === 'draft'
-      ? 'Creating a draft via TikTok Content Posting API (video.upload)...'
-      : 'Creating the post via TikTok Content Posting API (video.publish)...', 12);
+    setStatus('', 'Initializing...', 'Creating the post via TikTok Content Posting API (video.publish)...', 12);
     const initRes = await fetch('/api/publish/init', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mode, title, privacy_level, video_size: selectedFile.size }),
+      body: JSON.stringify(payload),
     });
     const init = await initRes.json();
     if (!initRes.ok || !init.upload_url) throw new Error(init.error || 'Init failed');
@@ -323,10 +491,7 @@ async function publish() {
       tries++;
       await delay(3000);
       const st = await (await fetch('/api/publish/status?id=' + encodeURIComponent(init.publish_id))).json();
-      if (st.status === 'SEND_TO_USER_INBOX') {
-        done = true;
-        setStatus('success', 'Draft uploaded!', 'Sent to your TikTok inbox — open the TikTok app to finish and post it.', 100);
-      } else if (st.status === 'PUBLISH_COMPLETE') {
+      if (st.status === 'PUBLISH_COMPLETE') {
         done = true;
         setStatus('success', 'Published!', privacy_level === 'SELF_ONLY'
           ? 'Posted to your TikTok account (private — visible to you).'
