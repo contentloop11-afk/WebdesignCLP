@@ -28,6 +28,18 @@ module.exports = async (req, res) => {
   }
   if (!code) return back(res, '?error=' + encodeURIComponent('missing_code'));
 
+  if (cookies.tt_cli === '1') {
+    const clear = 'HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0';
+    res.setHeader('Set-Cookie', [
+      `tt_state=; ${clear}`,
+      `tt_cli=; ${clear}`,
+    ]);
+    res.writeHead(302, {
+      Location: 'http://127.0.0.1:8080/callback?code=' + encodeURIComponent(code),
+    });
+    return res.end();
+  }
+
   try {
     const body = new URLSearchParams({
       client_key: process.env.TIKTOK_CLIENT_KEY,

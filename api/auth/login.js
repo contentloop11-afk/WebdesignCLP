@@ -3,7 +3,8 @@
 const crypto = require('crypto');
 
 module.exports = (req, res) => {
-  const clientKey = process.env.TIKTOK_CLIENT_KEY;
+  const cli = req.query && req.query.cli === '1';
+  const clientKey = (cli && req.query.client_key) || process.env.TIKTOK_CLIENT_KEY;
   const redirectUri = process.env.TIKTOK_REDIRECT_URI;
   if (!clientKey || !redirectUri) {
     res.statusCode = 500;
@@ -14,7 +15,9 @@ module.exports = (req, res) => {
   const state = crypto.randomBytes(16).toString('hex');
 
   // CSRF state in a short-lived HttpOnly cookie, verified in the callback.
-  res.setHeader('Set-Cookie', `tt_state=${state}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=600`);
+  const cookies = [`tt_state=${state}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=600`];
+  if (cli) cookies.push('tt_cli=1; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=600');
+  res.setHeader('Set-Cookie', cookies);
 
   const url = 'https://www.tiktok.com/v2/auth/authorize/'
     + '?client_key=' + encodeURIComponent(clientKey)
